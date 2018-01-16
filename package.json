@@ -1,0 +1,26 @@
+{
+  "name": "street-view-explorer",
+  "version": "1.0.0",
+  "description": "Work in progress",
+  "main": "index.js",
+  "scripts": {
+    "start" : "npx nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapillamba4/street-view-explorer.git"
+  },
+  "author": "Kapil Lamba",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kapillamba4/street-view-explorer/issues"
+  },
+  "homepage": "https://github.com/kapillamba4/street-view-explorer#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
