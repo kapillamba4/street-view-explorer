@@ -8,9 +8,12 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 let places = [];
 
+app.get('/getPlaces', (req, res) => {
+    res.send(places);
+});
+
 app.post('/set_route', (req, res) => {
     places = JSON.parse(req.body.data);
-    // console.log(JSON.parse(req.body.data)[0]['name']);
     res.send({
         success: true,
     });

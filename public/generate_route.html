@@ -9,39 +9,12 @@
     <script src="./js/jquery-3.2.1.min.js"></script>
     <script src="./js/popper.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./css/index.css">
-    <style>
-    </style>
+    <link rel="stylesheet" href="./css/generate_route.css">
+    <link rel="stylesheet" href="./css/responsiveslides.css">
+    <script src="./js/responsiveslides.min.js"></script>
 </head>
 <body>
-<div id="street-view">
-    <button type="button" class="respawnBtn btn btn-primary btn-md">Spawn nearby</button>
-    <button type="button" class="guessBtn btn btn-primary btn-md" data-toggle="modal" data-target=".chooseMapPosition">
-        Make a guess
-    </button>
-</div>
-<div class="chooseMapPosition modal fade">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="modal-body">
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Choose</button>
-            </div>
-        </div>
-    </div>
-    <button type="button" class="close" data-dismiss="modal">&times;</button>
-    <h4 class="modal-title">Modal Header</h4>
-</div>
-<script src="js/index.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initialize"></script>
+<img id="street-view-image"/>
+<script src="./js/generate_route.js"></script>
 </body>
 </html>

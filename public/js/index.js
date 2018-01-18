@@ -64,6 +64,34 @@ function initMap() {
     });
 }
 
+let getDirections = function (callback) {
+    let directionsService = new google.maps.DirectionsService;
+    directionsService.route({
+        origin: waypoints.slice(0, 1)[0].location,
+        destination: waypoints.slice(waypoints.length-1)[0].location,
+        waypoints: waypoints.slice(1, waypoints.length-1),
+        travelMode: 'DRIVING',
+    }, function (response, status) {
+        if(status === 'OK') {
+            let result = [];
+            for(let i = 0; i <  response.routes[0].legs.length; i++) {
+                for(let j = 0; j  < response.routes[0].legs[i].steps.length; j++) {
+                    for(let k = 0; k < response.routes[0].legs[i].steps[j].lat_lngs.length; k++) {
+                        result.push({
+                            lat: response.routes[0].legs[i].steps[j].lat_lngs[k].lat(),
+                            lng: response.routes[0].legs[i].steps[j].lat_lngs[k].lng()
+                        });
+                    }
+                }
+            }
+
+            callback(result);
+        } else {
+            console.log('cannot fetch directions');
+        }
+    });
+};
+
 $(function () {
     const $placeSelectBtn = $('#place-select-btn');
     const $waypointsList = $('.waypoints-list');
@@ -72,14 +100,14 @@ $(function () {
         if (selectedPlace !== null) {
             $waypointsList.append(`<li class="list-group-item">${selectedPlace.name}<i class="fa fa-trash fa-custom-settings"></i></li>`)
             waypoints.push({
-                name: selectedPlace.address_components,
-                address: selectedPlace.adr_address,
-                formatted_address: selectedPlace.formatted_address,
-                geometry: selectedPlace.geometry,
-                icon: selectedPlace.icon,
-                place_id: selectedPlace.place_id,
-                url: selectedPlace.url,
-                vicinity: selectedPlace.vicinity
+                // name: selectedPlace.address_components,
+                // address: selectedPlace.adr_address,
+                location: selectedPlace.formatted_address
+                // geometry: selectedPlace.geometry,
+                // icon: selectedPlace.icon,
+                // place_id: selectedPlace.place_id,
+                // url: selectedPlace.url,
+                // vicinity: selectedPlace.vicinity
             });
         }
 
@@ -87,7 +115,16 @@ $(function () {
     });
 
     $generateTourBtn.on('click', function () {
-        $.post('set_route', {data: JSON.stringify(waypoints)});
-        window.location.href = "/generate_route.html";
+        getDirections((directions) => {
+            let data = {
+                waypoints,
+                directions
+            };
+
+            console.log(directions);
+            $.post('/set_route', {data: JSON.stringify(data)}, () => {
+                window.location.href = "/generate_route.html";
+            });
+        });
     });
 });
